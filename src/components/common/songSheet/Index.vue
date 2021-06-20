@@ -7,7 +7,11 @@
                         <el-icon class="el-icon-caret-right"></el-icon>
                         <span>{{ item.playCount | playCount(item.playCount) }}</span>
                     </div>
-                    <img :src="item.picUrl" alt="" />
+                    <el-image lazy :src="item.picUrl">
+                        <div slot="placeholder" class="loading flex-row">
+                            <el-icon class="el-icon-loading"></el-icon>
+                        </div>
+                    </el-image>
                     <span class="song-text">{{ item.name }}</span>
                 </li>
             </ul>
@@ -64,10 +68,15 @@ export default {
             &:nth-child(9n) {
                 margin-right: 0;
             }
-            img {
+            .el-image {
                 width: 100%;
                 border-radius: 5px;
                 cursor: pointer;
+                .loading {
+                    width: 120px;
+                    height: 170px;
+                    font-size: 30px;
+                }
             }
             .song-text {
                 font-size: 13px;

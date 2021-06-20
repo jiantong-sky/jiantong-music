@@ -6,7 +6,11 @@
                     <el-icon class="el-icon-video-play"></el-icon>
                 </div>
             </transition>
-            <el-image :src="item.image" style="width: 70px; height: 70px"></el-image>
+            <el-image :src="item.image" lazy style="width: 70px; height: 70px">
+                <div slot="placeholder" class="loading flex-row">
+                    <el-icon class="el-icon-loading"></el-icon>
+                </div>
+            </el-image>
             <div class="item-singer">
                 <p>{{ item.name }}</p>
                 <p>{{ item.singer }}</p>
@@ -78,6 +82,11 @@ export default {
             max-width: 70px;
             border-radius: 3px;
             cursor: pointer;
+            .loading {
+                width: 100%;
+                height: 100%;
+                font-size: 30px;
+            }
         }
         span {
             flex: 20%;

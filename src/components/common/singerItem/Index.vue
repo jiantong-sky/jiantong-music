@@ -1,7 +1,11 @@
 <template>
     <li @click="toSinger(item)">
         <div class="img">
-            <el-image :src="item.img1v1Url"></el-image>
+            <el-image :src="item.img1v1Url" lazy>
+                <div slot="placeholder" class="loading flex-row">
+                    <el-icon class="el-icon-loading"></el-icon>
+                </div>
+            </el-image>
         </div>
         <div class="info">
             <p class="name">{{ item.name }}</p>
@@ -43,6 +47,11 @@ li {
         border-radius: 50%;
         overflow: hidden;
         cursor: pointer;
+        .loading {
+            width: 93px;
+            height: 93px;
+            font-size: 30px;
+        }
     }
     .info {
         text-align: center;
