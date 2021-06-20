@@ -3,7 +3,7 @@
         <jt-header></jt-header>
         <router-view></router-view>
         <jt-footer></jt-footer>
-        <player-bar></player-bar>
+        <player-bar v-if="$store.state.playStatus"></player-bar>
         <div><scroll></scroll></div>
     </div>
 </template>

@@ -6,7 +6,11 @@ const state = {
     // 歌手信息
     singer: {},
     // 播放列表
-    playList: []
+    playList: [],
+    // 播放器状态
+    playStatus: false,
+    // 歌曲索引
+    playIndex: -1
 }
 
 export default state

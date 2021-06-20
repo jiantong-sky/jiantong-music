@@ -1,8 +1,8 @@
 <template>
     <div class="songList">
-        <div class="item" v-for="item in songList" :key="item.id">
+        <div class="item" v-for="(item, index) in songList" :key="item.id">
             <transition name="el-fade-in-linear">
-                <div class="icon">
+                <div class="icon" @click="showAplayer(item, index)">
                     <el-icon class="el-icon-video-play"></el-icon>
                 </div>
             </transition>
@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
     data() {
         return {}
@@ -28,7 +29,21 @@ export default {
     },
     // 生命周期函数
     created() {},
-    methods: {},
+    methods: {
+        showAplayer(item, index) {
+            this.$store.commit('setPlayStatus', true)
+            this.$store.commit('setPlayList', this.songList)
+            this.$store.commit('setPlayIndex', index)
+            // this.songList.map(item => {
+            //     if (item.id === playId) {
+            //         window.localStorage.setItem('current', JSON.stringify(item))
+            //     }
+            // })
+        },
+    },
+    computed: {
+        ...mapState(['playStatus']),
+    },
 }
 </script>
 

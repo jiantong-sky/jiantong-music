@@ -43,7 +43,6 @@ export default {
             // console.log(data)
             this.songdetails = this.proSongData(data.songs)
             // console.log(this.songdetails)
-            this.$store.commit('setPlayList', this.songdetails)
         },
         // 处理歌曲数据
         proSongData(list) {
