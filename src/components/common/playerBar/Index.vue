@@ -69,9 +69,34 @@
                         </div>
                     </div>
                     <div class="seting flex-row">
-                        <span class="iconfont icon-ttpodicon" v-show="isOrder" @click="orderPlay"></span>
-                        <span class="iconfont icon-xunhuanbofang" v-show="isLoop" @click="loopPlay"></span>
-                        <span class="iconfont icon-ttpodicon1" v-show="isRandom" @click="randomPlay"></span>
+                        <el-tooltip
+                            effect="light"
+                            content="顺序播放"
+                            placement="top"
+                            :enterable="false"
+                            :hide-after="1000"
+                        >
+                            <span class="iconfont icon-ttpodicon" v-show="isOrder" @click="orderPlay"></span>
+                        </el-tooltip>
+                        <el-tooltip
+                            effect="light"
+                            content="循环播放"
+                            placement="top"
+                            :enterable="false"
+                            :hide-after="1000"
+                        >
+                            <span class="iconfont icon-xunhuanbofang" v-show="isLoop" @click="loopPlay"></span>
+                        </el-tooltip>
+                        <el-tooltip
+                            effect="light"
+                            content="随机播放"
+                            placement="top"
+                            :enterable="false"
+                            :hide-after="1000"
+                        >
+                            <span class="iconfont icon-ttpodicon1" v-show="isRandom" @click="randomPlay"></span>
+                        </el-tooltip>
+
                         <span class="iconfont icon-bofangliebiao"></span>
                         <span class="iconfont icon-geci"></span>
                     </div>
