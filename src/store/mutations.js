@@ -15,9 +15,13 @@ const mutations = {
     setPlayList(state, playList) {
         state.playList = playList
     },
-    // 播放状态
+    // 播放器状态
     setPlayStatus(state, status) {
         state.playStatus = status
+    },
+    // 音乐播放状态
+    setIsPlay(state, isPlay) {
+        state.isPlay = isPlay
     },
     // 歌曲索引
     setPlayIndex(state, playIndex) {

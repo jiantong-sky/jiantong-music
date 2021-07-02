@@ -3,7 +3,9 @@ body,
 ul,
 li,
 div,
-h2 {
+h2,
+h4,
+p {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -93,17 +95,3 @@ a:hover {
     display: block;
     /* 修复交汇时出现的白块 */
 }
-
-
-
-/* .el-scrollbar__bar {
-    opacity: 1 !important;
-}
-
-.el-scrollbar__wrap {
-    overflow-x: hidden !important;
-}
-
-.el-scrollbar__bar .is-horizontal {
-    display: none !important;
-} */

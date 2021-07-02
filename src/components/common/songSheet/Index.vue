@@ -34,15 +34,21 @@ export default {
     methods: {
         // 跳转到歌单详情页面
         playDetail(id) {
-            this.$router.push(`/playlistDetail?id=${id}`)
+            this.$router.push({
+                path: '/playlistDetail',
+                query: { id },
+            })
         },
     },
     filters: {
         playCount(count) {
-            if (count > 100000) {
+            if (count > 100000000) {
+                return parseInt(count / 100000000) + '亿'
+            } else if (count > 100000) {
                 return parseInt(count / 10000) + '万'
+            } else {
+                return count
             }
-            return count
         },
     },
 }
@@ -64,7 +70,8 @@ export default {
             width: 120px;
             height: 170px;
             float: left;
-            box-shadow: 5px -5px 5px #dcdfe6;
+            border-radius: 5px;
+            box-shadow: 4px -4px 5px #dcdfe6;
             &:nth-child(9n) {
                 margin-right: 0;
             }
@@ -74,7 +81,7 @@ export default {
                 cursor: pointer;
                 .loading {
                     width: 120px;
-                    height: 170px;
+                    height: 120px;
                     font-size: 30px;
                 }
             }
@@ -98,6 +105,7 @@ export default {
                 font-size: 10px;
                 color: rgb(255, 255, 255);
                 background-color: rgb(0, 0, 0);
+                z-index: 1;
                 span {
                     margin-left: 2px;
                 }

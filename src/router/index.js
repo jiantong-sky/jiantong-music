@@ -62,6 +62,7 @@ const routes = [
 			},
 			{
 				path: '/playlistDetail',
+				// name: '/playlistDetail',
 				component: () => import('@/views/playlist/detail/Index'),
 				meta: {
 					title: '推荐歌单列表'

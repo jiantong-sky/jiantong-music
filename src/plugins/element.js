@@ -19,7 +19,12 @@ import {
     Backtop,
     Slider,
     Tooltip,
-    Scrollbar
+    Scrollbar,
+    Loading,
+    Tag,
+    MessageBox,
+    Table,
+    TableColumn
 } from 'element-ui'
 
 // fade/zoom 等
@@ -32,6 +37,7 @@ import CollapseTransition from 'element-ui/lib/transitions/collapse-transition';
 Vue.component(CollapseTransition.name, CollapseTransition)
 
 Vue.prototype.$message = Message
+Vue.prototype.$alert = MessageBox.alert
 
 Vue.use(Button)
 Vue.use(Row)
@@ -52,5 +58,9 @@ Vue.use(Backtop)
 Vue.use(Slider)
 Vue.use(Tooltip)
 Vue.use(Scrollbar)
+Vue.use(Loading)
+Vue.use(Tag)
+Vue.use(Table)
+Vue.use(TableColumn)
 
 

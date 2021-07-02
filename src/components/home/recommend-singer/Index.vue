@@ -1,5 +1,5 @@
 <template>
-    <div class="singer" >
+    <div class="singer">
         <h4>推荐歌手</h4>
         <ul>
             <singer-item :item="item" v-for="item in singers" :key="item.id"></singer-item>
@@ -38,6 +38,7 @@ export default {
     margin: 20px 0 10px;
     h4 {
         font-weight: normal;
+        margin: 20px 0;
     }
     ul {
         display: flex;

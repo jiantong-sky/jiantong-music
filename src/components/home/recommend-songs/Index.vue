@@ -40,6 +40,7 @@ export default {
     margin: 20px 0 10px;
     h4 {
         font-weight: normal;
+        margin: 20px 0;
     }
 }
 </style>

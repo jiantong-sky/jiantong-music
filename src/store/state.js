@@ -9,6 +9,8 @@ const state = {
     playList: [],
     // 播放器状态
     playStatus: false,
+    // 音乐播放状态
+    isPlay: false,
     // 歌曲索引
     playIndex: -1
 }

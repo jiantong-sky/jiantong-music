@@ -138,7 +138,7 @@ export default {
     created() {},
     mounted() {},
     methods: {
-        ...mapMutations(['setPlayIndex']),
+        ...mapMutations(['setPlayIndex', 'setIsPlay']),
         // 格式化时间
         formatTime(interval) {
             interval = interval | 0
@@ -150,11 +150,14 @@ export default {
         musicPause() {
             this.$refs.audio.pause()
             this.isPlay = !this.isPlay
+            // console.log(this.isPlay)
+            this.setIsPlay(this.isPlay)
         },
         // 点击播放
         musicPlay() {
             this.$refs.audio.play()
             this.isPlay = !this.isPlay
+            this.setIsPlay(this.isPlay)
         },
         // 点击下一曲
         nextSong() {
@@ -185,10 +188,12 @@ export default {
         // 暂停播放时触发
         audioPaused() {
             this.isPlay = false
+            this.setIsPlay(this.isPlay)
         },
         // 开始播放时触发
         audioReady() {
             this.isPlay = true
+            this.setIsPlay(this.isPlay)
         },
         // 音频文件就绪后开始播放时触发
         updateTime() {
@@ -234,6 +239,7 @@ export default {
         error() {
             this.$refs.audio.pause()
             this.isPlay = !this.isPlay
+            this.setIsPlay(this.isPlay)
             this.$message.error('加载异常')
         },
         // 缓存下一帧停止时触发
@@ -311,11 +317,20 @@ export default {
             // 重新播放音频
             this.$refs.audio.play()
             this.isPlay = true
+            this.setIsPlay(this.isPlay)
             // console.log(data)
             // console.log(this.$refs.audio.src)
         },
         volume(val) {
             val === 0 ? (this.isMuted = true) : (this.isMuted = false)
+        },
+        '$store.state.isPlay'(newState) {
+            // console.log(newState)
+            if (newState) {
+                this.$refs.audio.play()
+            } else {
+                this.$refs.audio.pause()
+            }
         },
     },
 }

@@ -58,3 +58,37 @@ export const getHotSinger = () => request({
   type: 'get',
   url: `/top/artists?offset=0&limit=30`
 })
+
+// 获取排行榜内容
+export const getTopList = () => request({
+  type: 'get',
+  url: '/toplist'
+})
+
+// 获取歌单详情内容
+export const getPlayListInfo = params => request({
+  type: 'get',
+  url: '/playlist/detail',
+  params
+})
+
+// 获取歌单收藏者
+export const getPlayListSubscribers = params => request({
+  type: 'get',
+  url: '/playlist/subscribers',
+  params
+})
+
+// 获取歌单相关推荐
+export const getRelatedPlayList = params => request({
+  type: 'get',
+  url: '/related/playlist',
+  params
+})
+
+// 获取歌单相关评论
+export const getCommentPlayList = params => request({
+  type: 'get',
+  url: '/comment/playlist',
+  params
+})
