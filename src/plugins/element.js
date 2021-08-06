@@ -24,7 +24,9 @@ import {
     Tag,
     MessageBox,
     Table,
-    TableColumn
+    TableColumn,
+    Pagination,
+    Popover
 } from 'element-ui'
 
 // fade/zoom 等
@@ -62,5 +64,7 @@ Vue.use(Loading)
 Vue.use(Tag)
 Vue.use(Table)
 Vue.use(TableColumn)
+Vue.use(Pagination)
+Vue.use(Popover)
 
 
