@@ -92,16 +92,16 @@ export default {
         // 获取歌单分类
         async getPlaylistCatlist() {
             const data = await this.$http.getPlaylistCatlist()
-            if (data.code !== 200) return this.message.error('获取歌单分类失败')
+            if (data.code !== 200) return this.$message.error('获取歌单分类失败')
             this.tagClass = data.categories
             this.playListTag == data.sub
             this.tags = this.tagGrouping(data.sub, data.categories)
-            console.log(this.tags)
+            // console.log(this.tags)
         },
         // 获取热门歌单分类
         async getPlaylistHot() {
             const data = await this.$http.getPlaylistHot()
-            if (data.code !== 200) return this.message.error('获取热门歌单分类失败')
+            if (data.code !== 200) return this.$message.error('获取热门歌单分类失败')
             this.playListHot = data.tags
             // console.log(data)
         },
@@ -127,7 +127,7 @@ export default {
             }
             this.loading = true
             const data = await this.$http.getPlayList(params)
-            if (data.code !== 200) return this.message.error('获取歌单失败')
+            if (data.code !== 200) return this.$message.error('获取歌单失败')
             this.playList = data.playlists
             this.pageTotal = data.total
             this.loading = false

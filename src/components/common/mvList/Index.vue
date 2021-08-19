@@ -1,0 +1,141 @@
+<template>
+    <div class="mv-box">
+        <ul>
+            <li v-for="item in mvs" :key="item.id" @click="toMvDetail(item.id)">
+                <div class="mv-header">
+                    <img :src="item.imgurl ? item.imgurl : item.cover" alt="" />
+                    <span class="mv-count">
+                        <el-icon class="el-icon-caret-right"></el-icon>
+                        {{ utils.tranNumber(item.playCount, 0) }}
+                    </span>
+                    <div class="mv-mask">
+                        <span class="mv-artist">{{ item.artistName }}</span>
+                        <span class="mv-tiem">{{ utils.formatTime(item.duration) }}</span>
+                    </div>
+                    <div class="mv-play">
+                        <span class="iconfont icon-yinle-gongnengkongzhi-zantingxxhdpi"></span>
+                    </div>
+                </div>
+                <div class="mv-bottom">{{ item.name }}</div>
+            </li>
+        </ul>
+    </div>
+</template>
+
+<script>
+export default {
+    data() {
+        return {}
+    },
+    props: {
+        mvs: {
+            type: Array,
+        },
+    },
+    // 生命周期函数
+    created() {},
+    methods: {
+        toMvDetail(id) {
+            this.$router.push({
+                path: '/mvDetail',
+                query: {
+                    id,
+                },
+            })
+        },
+    },
+}
+</script>
+
+<style lang="less" scoped>
+.mv-box {
+    margin-top: 30px;
+    ul {
+        display: flex;
+        flex-wrap: wrap;
+        li {
+            // flex: 25%;
+            padding: 0 10px 40px;
+            width: 300px;
+
+            .mv-header {
+                position: relative;
+                width: 100%;
+                height: 160px;
+                cursor: pointer;
+                &:hover {
+                    .mv-play {
+                        display: block;
+                    }
+                }
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
+                .mv-count {
+                    position: absolute;
+                    top: 5px;
+                    right: 11px;
+                    padding: 2px 8px 2px 5px;
+                    background-color: #000;
+                    color: #fff;
+                    border-radius: 5px;
+                    font-size: 8px;
+                }
+                .mv-mask {
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 40px;
+                    background-color: rgba(0, 0, 0, 0.5);
+                    .mv-artist {
+                        position: absolute;
+                        top: 50%;
+                        left: 15px;
+                        transform: translate(0, -50%);
+                        color: #fff;
+                    }
+                    .mv-tiem {
+                        position: absolute;
+                        top: 50%;
+                        right: 15px;
+                        transform: translate(0, -50%);
+                        color: #fff;
+                    }
+                }
+                .mv-play {
+                    display: none;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 35px;
+                    height: 35px;
+                    border-radius: 50%;
+                    background-color: red;
+                    .iconfont {
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        color: #fff;
+                        font-size: 12px;
+                    }
+                }
+            }
+            .mv-bottom {
+                margin-top: 10px;
+                font-size: 14px;
+                color: #606266;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 1;
+                -webkit-box-orient: vertical;
+            }
+        }
+    }
+}
+</style>
+

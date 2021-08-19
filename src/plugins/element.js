@@ -26,7 +26,10 @@ import {
     Table,
     TableColumn,
     Pagination,
-    Popover
+    Popover,
+    InfiniteScroll,
+    Tabs,
+    TabPane
 } from 'element-ui'
 
 // fade/zoom 等
@@ -66,5 +69,8 @@ Vue.use(Table)
 Vue.use(TableColumn)
 Vue.use(Pagination)
 Vue.use(Popover)
+Vue.use(InfiniteScroll)
+Vue.use(Tabs)
+Vue.use(TabPane)
 
 

@@ -29,8 +29,8 @@ export default {
     methods: {
         // 点击跳转到歌手详情页面
         toSinger(item) {
+            // this.$store.commit('setSinger', item)
             this.$router.push(`/singerDetail?id=${item.id}`)
-            this.$store.commit('setSinger', item)
         },
     },
 }
@@ -56,9 +56,15 @@ li {
     .info {
         text-align: center;
         .name {
+            margin: 5px 0;
             font-size: 14px;
             font-weight: 700;
             font-family: PingFang SC, Arial, Microsoft YaHei, sans-serif;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
         }
         .count {
             color: red;

@@ -111,3 +111,73 @@ export const getPlayList = params => request({
 	url: '/top/playlist',
 	params
 })
+
+// 获取歌手列表
+export const getArtistList = params => request({
+	type: 'get',
+	url: '/artist/list',
+	params
+})
+
+// 获取歌手详情
+export const getArtistDetail = params => request({
+	type: 'get',
+	url: '/artist/detail',
+	params
+})
+
+// 获取歌手描述
+export const getArtistDesc = params => request({
+	type: 'get',
+	url: '/artist/desc',
+	params
+})
+
+// 获取歌手单曲
+export const getArtists = params => request({
+	type: 'get',
+	url: '/artists',
+	params
+})
+
+// 获取歌手专辑
+export const getArtistAlbum = params => request({
+	type: 'get',
+	url: '/artist/album',
+	params
+})
+
+// 获取歌手MV
+export const getArtistMv = params => request({
+	type: 'get',
+	url: '/artist/mv',
+	params
+})
+
+// 获取相似歌手
+export const getSimiArtist = params => request({
+	type: 'get',
+	url: '/simi/artist',
+	params
+})
+
+// 获取专辑内容
+export const getAlbum = params => request({
+	type: 'get',
+	url: '/album',
+	params
+})
+
+// 获取专辑评论
+export const getCommentAlbum = params => request({
+	type: 'get',
+	url: '/comment/album',
+	params
+})
+
+// 获取MV
+export const getMvAll = params => request({
+	type: 'get',
+	url: '/mv/all',
+	params
+})

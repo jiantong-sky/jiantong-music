@@ -5,6 +5,14 @@ import Layout from '@/views/layout/Index'
 
 Vue.use(VueRouter)
 
+// 解决重复路由不报错
+//获取原型对象上的push函数
+const originalPush = VueRouter.prototype.push
+//修改原型对象中的push方法
+VueRouter.prototype.push = function push(location) {
+	return originalPush.call(this, location).catch(err => err)
+}
+
 const routes = [
 	{
 		path: '/login',
@@ -74,6 +82,20 @@ const routes = [
 				meta: {
 					title: '歌手详情'
 				}
+			},
+			{
+				path: '/albumDetail',
+				component: () => import('@/views/album/Index'),
+				meta: {
+					title: '专辑'
+				}
+			},
+			{
+				path: '/mvDetail',
+				component: () => import('@/views/mv/detail/Index'),
+				meta: {
+					title: 'MV详情'
+				}
 			}
 		]
 	},
@@ -81,7 +103,11 @@ const routes = [
 ]
 
 const router = new VueRouter({
-	routes
+	routes,
+	// 解决路由跳转后页面不显示在首行
+	scrollBehavior() {
+		return { x: 0, y: 0 }
+	}
 })
 
 export default router

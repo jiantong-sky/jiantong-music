@@ -2,7 +2,7 @@
     <div class="container">
         <div class="sheet">
             <ul>
-                <li v-for="item in sheetList" :key="item.id" @click="playDetail(item.id)">
+                <li v-for="(item, index) in sheetList" :key="index" @click="playDetail(item.id)">
                     <div class="playCount">
                         <el-icon class="el-icon-caret-right"></el-icon>
                         <span>{{ item.playCount | playCount(item.playCount) }}</span>

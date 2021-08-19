@@ -34,7 +34,6 @@ export default {
     },
 }
 </script>
-
 <style lang="less" scoped>
 .isLog {
     min-width: 1200px;

@@ -1,8 +1,5 @@
 <template>
     <div class="login">
-        <!-- <kinesis-container>
-            <kinesis-element :strength="20"> </kinesis-element>
-        </kinesis-container> -->
         <el-card shadow="always">
             <div class="sign-in">
                 <div class="logo">
@@ -118,13 +115,17 @@ export default {
 <style lang="less" scoped>
 .login {
     min-width: 1200px;
+    position: absolute;
+    left: 0;
+    top: 0;
     width: 100%;
-    height: 721px;
-    background-size: 100% 100%;
-    background-image: url('../../assets/img/灰原2.jpg');
+    height: 100%;
+    background-size: cover;
+    background: url('../../assets/img/灰原2.jpg') no-repeat center center;
+    background-attachment: fixed;
     .el-card {
         width: 300px;
-        height: 400px;
+        // height: 400px;
         position: relative;
         top: 50%;
         left: 50%;

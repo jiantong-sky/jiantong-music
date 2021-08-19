@@ -1,72 +1,42 @@
 <template>
-    <div class="main container" v-loading.fullscreen.lock="loading">
+    <div class="main container">
         <div class="flex">
             <el-card class="play">
                 <div class="play-top">
                     <div class="play-img">
-                        <el-image :src="playListDetail.img"></el-image>
+                        <img :src="album.blurPicUrl" />
                     </div>
                     <div class="play-info">
-                        <h2>{{ playListDetail.name }}</h2>
+                        <h2>{{ album.name }}</h2>
                         <div class="play-author">
-                            <el-avatar :size="30" :src="author.avatarUrl">
+                            <el-avatar :size="30" :src="artist.picUrl">
                                 <img src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png" />
                             </el-avatar>
-                            <span>{{ author.nickname }}</span>
-                            <span>{{ utils.dateFormat(playListDetail.createTime, 'YYYY-MM-DD') }} 创建</span>
+                            <span>{{ artist.name }}</span>
+                            <span>{{ utils.dateFormat(album.publishTime, 'YYYY-MM-DD') }} 创建</span>
                         </div>
-                        <div class="play-tag" v-if="tagLength(playListDetail.tags) > 0">
-                            <span>标签: </span>
-                            <el-tag
-                                type="danger"
-                                effect="dark"
-                                size="small"
-                                v-for="(item, index) in playListDetail.tags"
-                                :key="index"
-                            >
-                                {{ item }}
-                            </el-tag>
+                        <div class="play-company">
+                            <p>发行公司：{{ album.company }}</p>
                         </div>
                         <div class="play-content">
-                            <p ref="content">{{ playListDetail.description }}</p>
-                            <span v-if="contenLength(playListDetail.description) > 64" @click="whole"> 全部 > </span>
+                            <p ref="content">{{ album.description }}</p>
+                            <span v-if="contenLength(album.description) > 64" @click="whole"> 全部 > </span>
                         </div>
                     </div>
                 </div>
-                <artist-list
-                    :songs="songs"
-                    :playList="playList"
-                    @modifyInfo="modifyInfo($event)"
-                    v-loading.body="loading1"
-                ></artist-list>
+                <artist-list :songs="songs" :playList="playList" @modifyInfo="modifyInfo($event)"></artist-list>
             </el-card>
             <div class="right">
                 <el-card>
                     <div class="header">
-                        <span>喜欢这个歌单的人</span>
-                    </div>
-                    <div class="userProfile">
-                        <el-avatar
-                            shape="square"
-                            :size="40"
-                            :src="item.avatarUrl"
-                            v-for="(item, index) in subscribers"
-                            :key="index"
-                        >
-                            <img src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png" />
-                        </el-avatar>
-                    </div>
-                </el-card>
-                <el-card>
-                    <div class="header">
-                        <span>相关歌单推荐</span>
+                        <span>其他专辑</span>
                     </div>
                     <div class="related">
-                        <div class="related-item" v-for="(item, index) in relatedPlayList" :key="index">
-                            <el-image :src="item.coverImgUrl"></el-image>
+                        <div class="related-item" v-for="(item, index) in hotAlbums" :key="index">
+                            <el-image :src="item.blurPicUrl"></el-image>
                             <div class="item-1">
                                 <h4 class="ellipsis" @click="jump(item.id)">{{ item.name }}</h4>
-                                <span>{{ item.creator.nickname }}</span>
+                                <span>{{ item.artist.name }}</span>
                             </div>
                         </div>
                     </div>
@@ -77,7 +47,7 @@
                     </div>
                     <div class="comments">
                         <ul>
-                            <li class="item" v-for="(item, index) in commentPlayList" :key="index">
+                            <li class="item" v-for="(item, index) in hotComments" :key="index">
                                 <el-avatar :size="45" :src="item.user.avatarUrl">
                                     <img src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png" />
                                 </el-avatar>
@@ -89,7 +59,7 @@
                                 </div>
                             </li>
                         </ul>
-                        <p class="isComment" v-if="commentLength(commentPlayList) === 0">还没有评论哦！</p>
+                        <p class="isComment" v-if="commentLength(hotComments) === 0">还没有评论哦！</p>
                     </div>
                 </el-card>
             </div>
@@ -103,124 +73,69 @@ import { createSong } from '@/model/song.js'
 export default {
     data() {
         return {
-            loading: false,
-            loading1: false,
+            // 专辑信息
+            album: {},
+            // 专辑歌曲
+            songs: [],
+            // 歌手信息
+            artist: {},
             // 播放列表
             playList: [],
-            // 歌单id
-            playListId: '',
-            // 歌单所有信息
-            playListInfo: [],
-            // 歌单信息
-            playListDetail: {},
-            // 歌单作者信息
-            author: {},
-            // 收藏这个歌单的人数
-            s: 32,
-            // 收藏这个歌单的人
-            subscribers: [],
-            // 相关歌单推荐
-            relatedPlayList: [],
-            // 歌单评论
-            commentPlayList: [],
-            // 歌曲列表
-            songs: [],
+            // 歌手专辑
+            hotAlbums: [],
+            // 评论
+            hotComments: [],
         }
     },
     // 生命周期函数
     created() {
-        // 歌单id
-        const id = this.$route.query.id
-        this.playListId = id
-        this.initialize(id)
+        this.initialize()
     },
     methods: {
         // 初始化
-        initialize(id) {
-            this.getPlayListInfo(id)
-            this.getPlayListSubscribers(id)
-            this.getRelatedPlayList(id)
-            this.getCommentPlayList(id)
+        initialize() {
+            let id = this.$route.query.id
+            this.getAlbum(id)
+            this.getCommentAlbum(id)
         },
-        async getPlayListInfo(id) {
-            // 开启页面加载
-            this.loading = true
-            // 收藏这个歌单的人数
-            const s = this.s
-            const data = await this.$http.getPlayListInfo({ id, s })
-            if (data.code !== 200) return this.$message.error('加载失败')
-            this.playListInfo = data.playlist
-            // 截取歌单信息
-            this.getPlayListDetail(data.playlist)
-            // 截取歌单作者信息
-            this.getPlayListAuthor(data.playlist.creator)
-            // 截取歌曲id
-            const ids = []
-            this.getSongDetail(data.playlist.trackIds)
-            // 关闭页面加载
-            this.loading = false
-            // console.log(data)
-        },
-        // 截取歌单信息
-        getPlayListDetail(detail) {
-            const info = {}
-            info.img = detail.coverImgUrl
-            info.name = detail.name
-            info.author = detail.creator
-            info.createTime = detail.createTime
-            info.tags = detail.tags
-            info.description = detail.description
-            this.playListDetail = info
-            // console.log(this.playListDetail)
-        },
-        // 截取歌单作者信息
-        getPlayListAuthor(author) {
-            this.author = author
-        },
-        // 获取歌单收藏者
-        async getPlayListSubscribers(id) {
-            const data = await this.$http.getPlayListSubscribers({
+        // 获取专辑评论
+        async getCommentAlbum(id) {
+            let params = {
                 id,
-                limit: 28,
-            })
-            if (data.code !== 200) return this.$message.error('获取歌单收藏者失败')
-            this.subscribers = data.subscribers
+            }
+            const data = await this.$http.getCommentAlbum(params)
+            if (data.code !== 200) return this.$message.error('获取专辑评论失败')
+            this.hotComments = data.hotComments
+            console.log(data)
+        },
+        // 获取歌手专辑
+        async getArtistAlbum() {
+            let id = this.artist.id
+            let params = {
+                id,
+                limit: 5,
+            }
+            const data = await this.$http.getArtistAlbum(params)
+            if (data.code !== 200) return this.$message.error('获取歌手专辑失败')
+            this.hotAlbums = data.hotAlbums
             // console.log(data)
         },
-        // 获取歌单相关推荐
-        async getRelatedPlayList(id) {
-            const data = await this.$http.getRelatedPlayList({ id })
-            if (data.code !== 200) return this.$message.error('获取相关推荐失败')
-            this.relatedPlayList = data.playlists
-            // console.log(data)
-        },
-        // 获取歌单评论
-        async getCommentPlayList(id) {
-            const data = await this.$http.getCommentPlayList({ id, limit: 28 })
-            if (data.code !== 200) return this.$message.error('获取评论失败')
-            this.commentPlayList = data.comments
-            // console.log(data)
-        },
-        // 获取歌曲详情
-        async getSongDetail(trackIds) {
-            this.loading1 = true
-            let ids = []
-            trackIds.map(item => {
-                ids.push(item.id)
-            })
-            const data = await this.$http.getSongDetail({ ids: ids.join(',') })
-            if (data.code !== 200) return this.$message.error('获取歌单歌曲失败')
+        // 获取专辑信息
+        async getAlbum(id) {
+            const data = await this.$http.getAlbum({ id })
+            if (data.code !== 200) return this.$message.error('获取专辑信息失败')
             data.songs.map((item, index) => {
                 item.state1 = true
                 item.state2 = false
                 item.state3 = false
                 item.index = index
             })
+            this.album = data.album
             this.songs = data.songs
+            this.artist = data.album.artist
             this.playList = this.proSongData(data.songs)
-            this.loading1 = false
-            // console.log(this.songs)
-            // console.log(this.playList)
+            this.getArtistAlbum()
+            // console.log(data)
         },
         // 处理歌曲数据
         proSongData(list) {
@@ -232,19 +147,6 @@ export default {
             })
             return data
         },
-        // 点击相关推荐跳转歌单
-        jump(id) {
-            this.$router.push({
-                path: '/playlistDetail',
-                query: { id },
-            })
-            // console.log(id)
-        },
-        whole() {
-            this.$alert(this.playListDetail.description, this.playListDetail.name, {
-                showConfirmButton: false,
-            }).catch(err => err)
-        },
         modifyInfo(e) {
             this.songs.map(item => {
                 if (item.index === e.index) {
@@ -252,14 +154,21 @@ export default {
                 }
             })
         },
-    },
-    watch: {
-        $route(newId, oldId) {
-            // console.log(newId, oldId)
-            let id = this.$route.query.id || newId.query.id
-            if (id) {
-                this.initialize(id)
-            }
+        whole() {
+            this.$alert(this.album.description, this.album.name, {
+                showConfirmButton: false,
+                closeOnClickModal: true,
+                customClass: 'descBox',
+                dangerouslyUseHTMLString: true,
+            }).catch(err => err)
+        },
+        // 点击相关推荐跳转歌单
+        jump(id) {
+            this.$router.push({
+                path: '/albumDetail',
+                query: { id },
+            })
+            // console.log(id)
         },
     },
     computed: {
@@ -285,6 +194,11 @@ export default {
             }
         },
     },
+    watch: {
+        $route() {
+            this.initialize()
+        },
+    },
     components: {
         ArtistList,
     },
@@ -301,7 +215,7 @@ export default {
             display: flex;
             .play-img {
                 flex: 30%;
-                .el-image {
+                img {
                     width: 200px;
                     height: 200px;
                     border-radius: 10px;
@@ -330,13 +244,9 @@ export default {
                         margin: 0;
                     }
                 }
-                .play-tag {
+                .play-company {
+                    margin-bottom: 15px;
                     font-size: 14px;
-                    margin: 5px 0 15px;
-                    .el-tag {
-                        margin: 0 10px 0 15px;
-                        cursor: pointer;
-                    }
                 }
                 .play-content {
                     p {
@@ -378,14 +288,6 @@ export default {
                 width: 3px;
                 height: 22px;
                 background-color: red;
-            }
-        }
-        .userProfile {
-            .el-avatar {
-                margin-right: 3px;
-            }
-            .el-avatar:nth-child(7n) {
-                margin: 0;
             }
         }
         .related {

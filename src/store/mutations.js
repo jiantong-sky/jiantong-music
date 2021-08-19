@@ -26,7 +26,7 @@ const mutations = {
     // 歌曲索引
     setPlayIndex(state, playIndex) {
         state.playIndex = playIndex
-    }
+    },
 }
 
 export default mutations
