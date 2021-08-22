@@ -55,6 +55,7 @@ export default {
    * @param {需要保留的小数位数} point
    */
   tranNumber(num, point) {
+    if (!num) return
     let numStr = num.toString()
     // 十万以内直接返回
     if (numStr.length < 6) {

@@ -1,6 +1,8 @@
 @font-face {
-  font-family: "iconfont"; /* Project id  */
-  src: url('iconfont.ttf?t=1624016856865') format('truetype');
+  font-family: "iconfont"; /* Project id 2756980 */
+  src: url('iconfont.woff2?t=1629534546479') format('woff2'),
+       url('iconfont.woff?t=1629534546479') format('woff'),
+       url('iconfont.ttf?t=1629534546479') format('truetype');
 }
 
 .iconfont {
@@ -9,6 +11,34 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-duanxin:before {
+  content: "\e61c";
+}
+
+.icon-dianzan:before {
+  content: "\e616";
+}
+
+.icon-fenxiang:before {
+  content: "\e634";
+}
+
+.icon-shoucang:before {
+  content: "\e826";
+}
+
+.icon-shoucang1:before {
+  content: "\e610";
+}
+
+.icon-shoucang2:before {
+  content: "\e661";
+}
+
+.icon-shoucang3:before {
+  content: "\e615";
 }
 
 .icon-ttpodicon:before {
@@ -28,11 +58,15 @@
 }
 
 .icon-bofangliebiao:before {
-  content: "\f00f4";
+  content: "\e600";
 }
 
 .icon-ziyuan:before {
   content: "\e620";
+}
+
+.icon-MV:before {
+  content: "\e61b";
 }
 
 .icon-wode:before {
@@ -48,7 +82,7 @@
 }
 
 .icon-laba:before {
-  content: "\e505";
+  content: "\e601";
 }
 
 .icon-fenlei:before {

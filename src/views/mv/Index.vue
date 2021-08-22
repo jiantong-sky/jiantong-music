@@ -50,6 +50,8 @@
                 :current-page.sync="currentPage"
                 layout="total, prev, pager, next"
                 :total="mvCount"
+                prev-text="上一页"
+                next-text="下一页"
             >
             </el-pagination>
         </div>

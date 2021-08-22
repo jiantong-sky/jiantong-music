@@ -24,12 +24,15 @@
                             show-password
                             prefix-icon="el-icon-lock"
                             v-model="loginForm.password"
+                            @keyup.enter.native="login"
                         >
                         </el-input>
                     </el-form-item>
                 </el-form>
-                <el-button type="primary" @click="login" :loading="loginLoading">登录</el-button>
-                <router-link to="/home">暂时先不登陆</router-link>
+                <el-button type="primary" @click="login" @keyup.enter.native="login" :loading="loginLoading">
+                    登录
+                </el-button>
+                <router-link :to="path">暂时先不登陆</router-link>
             </div>
         </el-card>
     </div>
@@ -51,10 +54,18 @@ export default {
                 password: [{ required: true, message: '输入密码！', trigger: 'blur' }],
             },
             loginLoading: false,
+            path: '',
         }
     },
     // 生命周期函数
-    created() {},
+    created() {
+        let newPage = sessionStorage.getItem('newPath')
+        if (newPage == '/video') {
+            this.path = sessionStorage.getItem('oldPath')
+        } else {
+            this.path = sessionStorage.getItem('newPath')
+        }
+    },
     methods: {
         // 登录的操作
         login() {
@@ -100,7 +111,7 @@ export default {
                 setTimeout(() => {
                     this.loginLoading = false
                     this.$message.success('登录成功')
-                    this.$router.push('/home')
+                    this.$router.push(this.path)
                 }, 1000)
             }
         },

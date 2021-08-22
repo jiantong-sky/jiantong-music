@@ -181,3 +181,80 @@ export const getMvAll = params => request({
 	url: '/mv/all',
 	params
 })
+
+// 获取MV详情数据
+export const getMvDetail = params => request({
+	type: 'get',
+	url: '/mv/detail',
+	params
+})
+
+// 获取mv地址
+export const getMvUrl = params => request({
+	type: 'get',
+	url: '/mv/url',
+	params
+})
+
+// 获取mv评论转发数等数据
+export const getMvDetailInfo = params => request({
+	type: 'get',
+	url: '/mv/detail/info',
+	params
+})
+
+// 获取相似mv
+export const getSimiMv = params => request({
+	type: 'get',
+	url: '/simi/mv',
+	params
+})
+
+// 获取mv评论
+export const getCommentMv = params => request({
+	type: 'get',
+	url: '/comment/mv',
+	params
+})
+
+// 给mv评论点赞
+export const getCommentLike = params => request({
+	type: 'get',
+	url: '/comment/like',
+	params
+})
+
+// 发送 / 删除评论
+export const getComment = params => request({
+	type: 'get',
+	url: '/comment',
+	params
+})
+
+// 获取视频标签列表
+export const getVideoGroupList = params => request({
+	type: 'get',
+	url: '/video/group/list',
+	params
+})
+
+// 获取视频分类列表
+export const getVideoCategoryList = params => request({
+	type: 'get',
+	url: '/video/category/list',
+	params
+})
+
+// 获取全部视频列表
+export const getVideoTimelineAll = params => request({
+	type: 'get',
+	url: '/video/timeline/all',
+	params
+})
+
+// 获取视频 标签 / 分类 下的视频
+export const getVideoGroup = params => request({
+	type: 'get',
+	url: '/video/group',
+	params
+})

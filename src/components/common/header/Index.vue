@@ -68,10 +68,12 @@ export default {
     },
     // 生命周期函数
     created() {
+        sessionStorage.setItem('newPath', this.$route.fullPath)
         this.getUserInfo()
     },
     methods: {
         login() {
+            // console.log(this.$route)
             this.$router.push('/login')
         },
         // 在头部区域显示头像等信息
@@ -104,6 +106,14 @@ export default {
         isLogin() {
             // console.log(window.localStorage.getItem('loginStatus'))
             return JSON.parse(window.localStorage.getItem('loginStatus'))
+        },
+    },
+    watch: {
+        $route(newPath, oldPath) {
+            sessionStorage.setItem('newPath', newPath.fullPath)
+            sessionStorage.setItem('oldPath', oldPath.fullPath)
+            // console.log(newPath)
+            // console.log(oldPath)
         },
     },
 }

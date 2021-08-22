@@ -3,20 +3,28 @@
         <ul>
             <li v-for="item in mvs" :key="item.id" @click="toMvDetail(item.id)">
                 <div class="mv-header">
-                    <img :src="item.imgurl ? item.imgurl : item.cover" alt="" />
-                    <span class="mv-count">
+                    <img v-if="item.imgurl" :src="item.imgurl" alt="" />
+                    <img v-if="item.cover" :src="item.cover" alt="" />
+                    <img v-if="item.coverUrl" :src="item.coverUrl" alt="" />
+                    <span class="mv-count" v-if="item.playCount">
                         <el-icon class="el-icon-caret-right"></el-icon>
                         {{ utils.tranNumber(item.playCount, 0) }}
                     </span>
+                    <span class="mv-count" v-if="item.praisedCount">
+                        <el-icon class="el-icon-caret-right"></el-icon>
+                        {{ utils.tranNumber(item.praisedCount, 0) }}
+                    </span>
                     <div class="mv-mask">
                         <span class="mv-artist">{{ item.artistName }}</span>
-                        <span class="mv-tiem">{{ utils.formatTime(item.duration) }}</span>
+                        <span class="mv-tiem" v-if="item.duration">{{ utils.formatTime(item.duration) }}</span>
+                        <span class="mv-tiem" v-else-if="item.playTime">{{ utils.formatTime(item.playTime) }}</span>
                     </div>
                     <div class="mv-play">
                         <span class="iconfont icon-yinle-gongnengkongzhi-zantingxxhdpi"></span>
                     </div>
                 </div>
-                <div class="mv-bottom">{{ item.name }}</div>
+                <div class="mv-bottom" v-if="item.name">{{ item.name }}</div>
+                <div class="mv-bottom" v-else-if="item.title">{{ item.title }}</div>
             </li>
         </ul>
     </div>

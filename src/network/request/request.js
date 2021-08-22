@@ -1,5 +1,9 @@
 import axios from 'axios'
 import config from '../config'
+import { Message } from 'element-ui'
+import router from '@/router'
+import qs from 'qs'
+
 
 const { base_url } = config
 
@@ -17,6 +21,17 @@ export function request(config) {
 		timeout: 1000 * 60
 	})
 
+	instance.defaults.responseType = 'json'
+	instance.defaults.withCredentials = true
+	instance.defaults.transformRequest = [
+		data => {
+			return qs.stringify(data)
+		}
+	]
+	instance.defaults.validateStatus = function () {
+		return true
+	}
+
 	instance.interceptors.response.use(
 		res => {
 			let data = res.data
@@ -24,8 +39,8 @@ export function request(config) {
 			if (status === 200) {
 				return data
 			} else if (status === 301) {
-				this.$message.error('请先登录!')
-				this.$router.replace('/login')
+				Message.error('请先登录!')
+				// router.replace('/login')
 			}
 		},
 		err => {
