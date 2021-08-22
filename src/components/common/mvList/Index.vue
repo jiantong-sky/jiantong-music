@@ -1,7 +1,7 @@
 <template>
     <div class="mv-box">
         <ul>
-            <li v-for="item in mvs" :key="item.id" @click="toMvDetail(item.id)">
+            <li v-for="(item, index) in mvs" :key="index" @click="toMvDetail(item.id ? item.id : item.vid)">
                 <div class="mv-header">
                     <img v-if="item.imgurl" :src="item.imgurl" alt="" />
                     <img v-if="item.cover" :src="item.cover" alt="" />
@@ -44,12 +44,22 @@ export default {
     created() {},
     methods: {
         toMvDetail(id) {
-            this.$router.push({
-                path: '/mvDetail',
-                query: {
-                    id,
-                },
-            })
+            // console.log(this.mvs)
+            if (this.mvs[0].playCount) {
+                this.$router.push({
+                    path: '/mvDetail',
+                    query: {
+                        id,
+                    },
+                })
+            } else {
+                this.$router.push({
+                    path: '/videoDetail',
+                    query: {
+                        id,
+                    },
+                })
+            }
         },
     },
 }

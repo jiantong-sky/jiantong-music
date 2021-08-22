@@ -116,6 +116,7 @@ export default {
             value2: 0,
             // 音量进度(默认音量)
             volume: 50,
+            volume1: 50,
             // 当前音乐播放时的时长
             currentTime: 0,
             // 拖动进度条后的播放时长
@@ -240,7 +241,7 @@ export default {
             this.$refs.audio.pause()
             this.isPlay = !this.isPlay
             this.setIsPlay(this.isPlay)
-            this.$message.error('加载异常')
+            this.$message.error('音乐加载异常！，请播放其他音乐...')
         },
         // 缓存下一帧停止时触发
         waiting() {
@@ -253,11 +254,13 @@ export default {
         audioMute() {
             this.isMuted = true
             this.$refs.audio.muted = true
+            this.volume = 0
         },
         // 点击开启声音
         audioOpen() {
             this.isMuted = false
             this.$refs.audio.muted = false
+            this.volume = this.volume1
         },
         // 点击切换为循环播放
         orderPlay() {
@@ -322,6 +325,7 @@ export default {
             // console.log(this.$refs.audio.src)
         },
         volume(val) {
+            if (val >= 20) this.volume1 = val
             val === 0 ? (this.isMuted = true) : (this.isMuted = false)
         },
         '$store.state.isPlay'(newState) {

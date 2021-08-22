@@ -96,6 +96,13 @@ const routes = [
 				meta: {
 					title: 'MV详情'
 				}
+			},
+			{
+				path: '/videoDetail',
+				component: () => import('@/views/video/detail/Index'),
+				meta: {
+					title: '视频详情'
+				}
 			}
 		]
 	},

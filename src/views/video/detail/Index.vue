@@ -2,17 +2,19 @@
     <div class="mv-detail main container">
         <el-card class="left" shadow="always">
             <div class="play-box">
-                <video class="mv-play" :src="mvUrl.url" controls="controls" autoplay="autoplay"></video>
+                <video class="mv-play" :src="videoUrl.url" controls="controls" autoplay="autoplay"></video>
             </div>
             <div class="mv-info">
-                <h2><span class="iconfont icon-MV"></span>{{ mvDetail.name }}</h2>
+                <h2><span class="iconfont icon-MV"></span>{{ videoDetail.title }}</h2>
                 <div class="mv-videoGroup">
-                    <span v-for="item in mvDetail.videoGroup" :key="item.id">#{{ item.name }}</span>
+                    <span v-for="item in videoDetail.videoGroup" :key="item.id">#{{ item.name }}</span>
                 </div>
                 <div class="mv-artists">
-                    <span class="mv-artistName">发布者：{{ mvDetail.artists | artistName }}</span>
-                    <span class="mv-publishTime">发布时间：{{ mvDetail.publishTime }}</span>
-                    <span class="mv-playCount">播放次数：{{ utils.tranNumber(mvDetail.playCount, 1) }}</span>
+                    <span class="mv-artistName">发布者：{{ creator.nickname }}</span>
+                    <span class="mv-publishTime">
+                        发布时间：{{ utils.dateFormat(videoDetail.publishTime, 'YYYY-MM-DD') }}
+                    </span>
+                    <span class="mv-playCount">播放次数：{{ utils.tranNumber(videoDetail.playTime, 1) }}</span>
                 </div>
                 <div class="mv-count">
                     <span class="mv-likedCount">
@@ -77,7 +79,7 @@
                 <div class="header">
                     <span>视频简介</span>
                 </div>
-                <div class="mv-desc" v-if="mvDetail.desc != ''">{{ mvDetail.desc }}</div>
+                <div class="mv-desc" v-if="videoDetail.description != null">{{ videoDetail.description }}</div>
                 <div class="mv-desc" v-else>视频暂无简介</div>
             </el-card>
             <el-card class="right-bottom" shadow="always">
@@ -85,7 +87,7 @@
                     <span>相关推荐</span>
                 </div>
                 <div class="relevant">
-                    <relevant :relevant="mvs" @toMvDetail="toMvDetail"></relevant>
+                    <relevant :relevant="relatedVideo" @toMvDetail="toMvDetail"></relevant>
                 </div>
             </el-card>
         </div>
@@ -98,12 +100,14 @@ import relevant from '@/components/common/relevant/Index'
 export default {
     data() {
         return {
-            mvId: '',
-            // mv信息
-            mvDetail: [],
-            // mv地址
-            mvUrl: {},
-            // mv评论数
+            id: '',
+            // 视频信息
+            videoDetail: {},
+            // 发布者信息
+            creator: {},
+            // 视频地址
+            videoUrl: {},
+            // 视频评论数
             commentCount: 0,
             // 点赞数
             likedCount: 0,
@@ -112,7 +116,7 @@ export default {
             // 收藏数
             subCount: 0,
             // 相似mv
-            mvs: [],
+            relatedVideo: [],
             // 用户评论
             textarea: '',
             // 热门评论
@@ -134,52 +138,54 @@ export default {
     methods: {
         // 初始化
         initiailze() {
-            let mvid = this.$route.query.id
+            let id = this.$route.query.id
             let userInfo = localStorage.getItem('userInfo')
             if (userInfo !== '') {
                 this.userInfo = userInfo
                 this.user = JSON.parse(userInfo)
             }
-            this.mvId = mvid
-            this.getMvDetail(mvid)
-            this.getMvUrl(mvid)
-            this.getMvDetailInfo(mvid)
-            this.getSimiMv(mvid)
-            this.getCommentMv(mvid)
+            this.id = id
+            this.getVideoDetail(id)
+            this.getVideoUrl(id)
+            this.getVideoDetailInfo(id)
+            this.getRelatedAllVideo(id)
+            this.getCommentVideo(id)
         },
-        // 获取MV信息
-        async getMvDetail(mvid) {
-            const data = await this.$http.getMvDetail({ mvid })
-            if (data.code !== 200) return this.$message.error('获取MV信息失败')
-            this.mvDetail = data.data
-            this.subCount = data.data.subCount
+        // 获取视频信息
+        async getVideoDetail(id) {
+            const data = await this.$http.getVideoDetail({ id })
+            if (data.code !== 200) return this.$message.error('获取视频信息失败')
+            this.videoDetail = data.data
+            this.subCount = data.data.subscribeCount
+            this.creator = data.data.creator
             // console.log(data)
         },
-        // 获取mv地址
-        async getMvUrl(id) {
-            const data = await this.$http.getMvUrl({ id })
+        // 获取视频地址
+        async getVideoUrl(id) {
+            const data = await this.$http.getVideoUrl({ id })
             if (data.code !== 200) return this.$message.error('播放失败')
-            this.mvUrl = data.data
+            this.videoUrl = data.urls[0]
             // console.log(data)
         },
         // 获取评论转发数等数据
-        async getMvDetailInfo(mvid) {
-            const data = await this.$http.getMvDetailInfo({ mvid })
-            if (data.code !== 200) return this.$message.error('获取MV信息失败')
+        async getVideoDetailInfo(id) {
+            let timestamp = new Date().getTime()
+            const data = await this.$http.getVideoDetailInfo({ vid: id, timestamp })
+            if (data.code !== 200) return this.$message.error('获取视频信息失败')
             this.commentCount = data.commentCount
             this.likedCount = data.likedCount
             this.shareCount = data.shareCount
             // console.log(data)
         },
         // 获取相似mv
-        async getSimiMv(mvid) {
-            const data = await this.$http.getSimiMv({ mvid })
+        async getRelatedAllVideo(id) {
+            const data = await this.$http.getRelatedAllVideo({ id })
             if (data.code !== 200) return this.$message.error('获取相似MV失败')
-            this.mvs = data.mvs
+            this.relatedVideo = data.data
             // console.log(data)
         },
         // 获取mv评论
-        async getCommentMv(id) {
+        async getCommentVideo(id) {
             let timestamp = new Date().getTime()
             let params = {
                 id,
@@ -187,7 +193,7 @@ export default {
                 offset: this.offset,
                 timestamp,
             }
-            const data = await this.$http.getCommentMv(params)
+            const data = await this.$http.getCommentVideo(params)
             if (data.code !== 200) return this.$message.error('获取MV评论失败')
             this.hotComments = data.hotComments
             this.comments = data.comments
@@ -198,10 +204,10 @@ export default {
             let timestamp = new Date().getTime()
             // let id = this.$route.query.id
             let params = {
-                id: this.mvId,
+                id: this.id,
                 cid: item.commentId,
                 t: item.liked ? 0 : 1,
-                type: 1,
+                type: 5,
                 timestamp,
             }
             const data = await this.$http.getCommentLike(params)
@@ -211,7 +217,7 @@ export default {
                 this.$message.success('点赞成功！')
             }
             setTimeout(() => {
-                this.getCommentMv(this.mvId)
+                this.getCommentVideo(this.id)
             }, 500)
         },
         // 发送评论
@@ -219,8 +225,8 @@ export default {
             if (this.textarea === '') return
             let timestamp = new Date().getTime()
             let params = {
-                id: this.mvId,
-                type: 1,
+                id: this.id,
+                type: 5,
                 t: 1,
                 content: this.textarea,
                 timestamp,
@@ -231,20 +237,20 @@ export default {
             // console.log(data)
             this.textarea = ''
             setTimeout(() => {
-                this.getCommentMv(this.mvId)
+                this.getCommentVideo(this.id)
             }, 500)
         },
         // 分页
         handleCurrentChange(newPage) {
             this.currentPage = newPage
             this.offset = (newPage - 1) * this.limit
-            let mvid = this.$route.query.id
-            this.getCommentMv(mvid)
+            let id = this.$route.query.id
+            this.getCommentVideo(id)
         },
         // 跳转路由
         toMvDetail(id) {
             this.$router.push({
-                path: '/mvDetail',
+                path: '/videoDetail',
                 query: {
                     id,
                 },

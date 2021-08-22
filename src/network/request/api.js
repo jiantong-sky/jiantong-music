@@ -258,3 +258,38 @@ export const getVideoGroup = params => request({
 	url: '/video/group',
 	params
 })
+
+// 获取视频详情
+export const getVideoDetail = params => request({
+	type: 'get',
+	url: '/video/detail',
+	params
+})
+
+// 获取视频播放地址
+export const getVideoUrl = params => request({
+	type: 'get',
+	url: '/video/url',
+	params
+})
+
+// 获取视频点赞转发评论数数据
+export const getVideoDetailInfo = params => request({
+	type: 'get',
+	url: '/video/detail/info',
+	params
+})
+
+// 相关视频
+export const getRelatedAllVideo = params => request({
+	type: 'get',
+	url: '/related/allvideo',
+	params
+})
+
+// 获取视频评论
+export const getCommentVideo = params => request({
+	type: 'get',
+	url: '/comment/video',
+	params
+})
