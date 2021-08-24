@@ -26,8 +26,8 @@
                 </li>
             </ul>
             <div class="search">
-                <el-input placeholder="请输入内容">
-                    <el-button slot="append" icon="el-icon-search"></el-button>
+                <el-input placeholder="请输入内容" v-model="content" @keyup.enter.native="search">
+                    <el-button slot="append" icon="el-icon-search" @click="search"></el-button>
                 </el-input>
             </div>
             <div class="login">
@@ -64,6 +64,7 @@ export default {
         return {
             userName: '',
             avatarURL: '',
+            content: '',
         }
     },
     // 生命周期函数
@@ -100,6 +101,15 @@ export default {
                     }
             }
             // console.log(command)
+        },
+        search() {
+            if (this.content.trim() == '') return
+            this.$router.push({
+                path: '/search',
+                query: {
+                    keywords: this.content,
+                },
+            })
         },
     },
     computed: {
@@ -146,7 +156,15 @@ export default {
         }
         span {
             font-size: 24px;
-            color: skyblue;
+            // color: skyblue;
+            background: linear-gradient(to right, red, pink, skyblue, orange);
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: 5px 5px 4px #c0c4cc;
+            // text-shadow: 5px 5px 6px orange; /* 水平位移  垂直位移 模糊度 颜色 */
+            // text-shadow: -1px -1px 1px #fff, 1px 1px 1px #000; /* (文字凸起效果)可以通过","添加多个阴影 */
+            // text-shadow: -1px -1px 1px #000, 1px 1px 1px #fff; /* (文字凹陷效果) */
+            // color: #ccc; /* 字体颜色放在text-shadow下面才生效 */
         }
     }
     .nav {

@@ -34,6 +34,7 @@
                         @timeupdate="updateTime"
                         @error="error"
                         @waiting="waiting"
+                        @loadstart="loadstart"
                     ></audio>
                     <!-- </div> -->
 
@@ -122,7 +123,7 @@ export default {
             // 拖动进度条后的播放时长
             afterCurrentTime: 0,
             // 当前要播放的歌曲
-            currentSong: {},
+            currentSong: null,
             // 控制播放和暂停图标
             isPlay: true,
             // 进度条步长
@@ -195,6 +196,12 @@ export default {
         audioReady() {
             this.isPlay = true
             this.setIsPlay(this.isPlay)
+        },
+        // 浏览器寻找音频文件时触发
+        loadstart() {
+            // console.log(this.currentSong)
+            if (this.currentSong !== null) return
+            this.$message.info('正在加载...')
         },
         // 音频文件就绪后开始播放时触发
         updateTime() {

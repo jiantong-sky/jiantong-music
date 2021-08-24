@@ -81,6 +81,7 @@ export default {
                 width: 100%;
                 height: 160px;
                 cursor: pointer;
+                overflow: hidden;
                 &:hover {
                     .mv-play {
                         display: block;

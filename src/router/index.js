@@ -103,6 +103,13 @@ const routes = [
 				meta: {
 					title: '视频详情'
 				}
+			},
+			{
+				path: '/search',
+				component: () => import('@/views/search/Index'),
+				meta: {
+					title: '搜索'
+				}
 			}
 		]
 	},

@@ -293,3 +293,10 @@ export const getCommentVideo = params => request({
 	url: '/comment/video',
 	params
 })
+
+// 搜索
+export const getSearch = params => request({
+	type: 'get',
+	url: '/cloudsearch',
+	params
+})

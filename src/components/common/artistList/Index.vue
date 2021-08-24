@@ -5,11 +5,11 @@
                 <el-icon class="el-icon-caret-right"></el-icon>
                 <span>播放全部</span>
             </div>
-            <div class="collection item">
+            <!-- <div class="collection item">
                 <el-icon class="el-icon-star-off"></el-icon>
                 <el-icon class="el-icon-star-on" style="font-size: 17px" v-show="false"></el-icon>
                 <span>收藏</span>
-            </div>
+            </div> -->
         </div>
         <div class="artist-main">
             <el-table
