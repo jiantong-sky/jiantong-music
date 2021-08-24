@@ -24,6 +24,9 @@
                 <li>
                     <router-link to="/mv">MV</router-link>
                 </li>
+                <li>
+                    <a href="https://gitee.com/its-jane-tong" target="_blank">GITEE</a>
+                </li>
             </ul>
             <div class="search">
                 <el-input placeholder="请输入内容" v-model="content" @keyup.enter.native="search">
