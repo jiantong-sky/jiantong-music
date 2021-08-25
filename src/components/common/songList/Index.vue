@@ -56,7 +56,9 @@ export default {
     display: flex;
     flex-wrap: wrap;
     .item {
-        flex: 50%;
+        // flex: 50%;
+        width: 600px;
+        height: 70px;
         margin-bottom: 20px;
         max-height: 80px;
         display: flex;

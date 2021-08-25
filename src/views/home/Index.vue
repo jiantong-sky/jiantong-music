@@ -22,7 +22,11 @@ export default {
         return {}
     },
     // 生命周期函数
-    created() {},
+    created() {
+        window.localStorage.setItem('token', '')
+        window.localStorage.setItem('cookie', '')
+        window.localStorage.setItem('userInfo', '')
+    },
     methods: {},
     components: {
         banner,

@@ -82,7 +82,7 @@ export default {
         // 初始化
         initiailze() {
             let token = localStorage.getItem('token')
-            console.log()
+            // console.log()
             if (token == '') {
                 this.$message.error('请先登录！')
                 this.$router.push('/login')
@@ -95,7 +95,7 @@ export default {
         // 获取视频标签列表
         async getVideoGroupList() {
             const data = await this.$http.getVideoGroupList()
-            if (data.code !== 200) return this.$message.error('获取视频标签失败!')
+            if (data.code !== 200 && data) return this.$message.error('获取视频标签失败!')
             this.videoGroupList = data.data
             // console.log(data)
         },
@@ -103,14 +103,14 @@ export default {
         async getVideoCategoryList() {
             let timestamp = new Date().getTime()
             const data = await this.$http.getVideoCategoryList({ timestamp })
-            if (data.code !== 200) return this.$message.error('获取视频分类失败!')
+            if (data.code !== 200 && data) return this.$message.error('获取视频分类失败!')
             this.videoCategoryList = data.data
             // console.log(data)
         },
         // 获取全部视频列表
         async getVideoTimelineAll() {
             const data = await this.$http.getVideoTimelineAll({ offset: this.offset })
-            if (data.code !== 200) return this.$message.error('获取视频列表失败!')
+            if (data.code !== 200 && data) return this.$message.error('获取视频列表失败!')
             this.videoList = data.datas
             // console.log(data.datas)
         },
@@ -122,7 +122,7 @@ export default {
                 offset: this.offset,
             }
             const data = await this.$http.getVideoGroup(params)
-            if (data.code !== 200) return this.$message.error('获取视频列表失败!')
+            if (data.code !== 200 && data) return this.$message.error('获取视频列表失败!')
             this.videoList = data.datas
             this.loading = false
             // console.log(data)
