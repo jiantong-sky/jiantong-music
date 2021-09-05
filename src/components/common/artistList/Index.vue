@@ -33,7 +33,7 @@
                 <el-table-column label="歌曲" width="260px" class-name="item-song">
                     <template slot-scope="scope">
                         <div class="item-song-box" :class="{ isColor: isColor(scope.row.index) }">
-                            <el-image :src="scope.row.al.picUrl" fit="fill">
+                            <el-image :src="scope.row.al.picUrl + '?param=40y40'" fit="fill">
                                 <div slot="placeholder" class="image-slot">
                                     <el-icon class="el-icon-loading"></el-icon>
                                 </div>

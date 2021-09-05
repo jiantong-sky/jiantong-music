@@ -1,7 +1,7 @@
 <template>
     <li @click="toSinger(item)">
         <div class="img">
-            <el-image :src="item.img1v1Url" lazy>
+            <el-image :src="item.img1v1Url + '?param=93y93'" lazy>
                 <div slot="placeholder" class="loading flex-row">
                     <el-icon class="el-icon-loading"></el-icon>
                 </div>

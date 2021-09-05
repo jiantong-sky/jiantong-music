@@ -2,7 +2,7 @@
     <div class="album-box">
         <ul>
             <li v-for="item in hotAlbums" :key="item.id" @click="toAlbum(item.id)">
-                <img :src="item.picUrl" alt="" />
+                <img :src="item.picUrl + '?param=160y160'" alt="" />
                 <div class="album-info">
                     <h3 class="album-name">{{ item.name }}</h3>
                     <h4 class="album-author">{{ item.artist.name }}</h4>

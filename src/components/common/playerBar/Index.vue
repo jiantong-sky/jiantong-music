@@ -18,7 +18,7 @@
                 </div>
                 <div class="progress">
                     <div class="cover flex-row">
-                        <img :src="playInfo.image" />
+                        <img :src="playInfo.image + '?param=60y60'" />
                     </div>
                     <!-- <div class="audio">
                         <h2>

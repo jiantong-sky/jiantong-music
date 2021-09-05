@@ -7,12 +7,12 @@
                         <el-icon class="el-icon-caret-right"></el-icon>
                         <span>{{ item.playCount | playCount(item.playCount) }}</span>
                     </div>
-                    <el-image lazy :src="item.picUrl" v-if="item.picUrl">
+                    <el-image lazy :src="item.picUrl + '?param=120y120'" v-if="item.picUrl">
                         <div slot="placeholder" class="loading flex-row">
                             <el-icon class="el-icon-loading"></el-icon>
                         </div>
                     </el-image>
-                    <el-image lazy :src="item.coverImgUrl" v-else>
+                    <el-image lazy :src="item.coverImgUrl + '?param=120y120'" v-else>
                         <div slot="placeholder" class="loading flex-row">
                             <el-icon class="el-icon-loading"></el-icon>
                         </div>

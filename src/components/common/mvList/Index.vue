@@ -3,9 +3,9 @@
         <ul>
             <li v-for="(item, index) in mvs" :key="index" @click="toMvDetail(item.id ? item.id : item.vid)">
                 <div class="mv-header">
-                    <img v-if="item.imgurl" :src="item.imgurl" alt="" />
-                    <img v-if="item.cover" :src="item.cover" alt="" />
-                    <img v-if="item.coverUrl" :src="item.coverUrl" alt="" />
+                    <img v-if="item.imgurl" :src="item.imgurl + '?param=280y160'" alt="" />
+                    <img v-if="item.cover" :src="item.cover + '?param=280y160'" alt="" />
+                    <img v-if="item.coverUrl" :src="item.coverUrl + '?param=280y160'" alt="" />
                     <span class="mv-count" v-if="item.playCount">
                         <el-icon class="el-icon-caret-right"></el-icon>
                         {{ utils.tranNumber(item.playCount, 0) }}

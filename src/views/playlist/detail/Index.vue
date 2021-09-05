@@ -4,12 +4,12 @@
             <el-card class="play">
                 <div class="play-top">
                     <div class="play-img">
-                        <el-image :src="playListDetail.img"></el-image>
+                        <el-image :src="playListDetail.img + '?param=200y200'"></el-image>
                     </div>
                     <div class="play-info">
                         <h2>{{ playListDetail.name }}</h2>
                         <div class="play-author">
-                            <el-avatar :size="30" :src="author.avatarUrl">
+                            <el-avatar :size="30" :src="author.avatarUrl + '?param=30y30'">
                                 <img src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png" />
                             </el-avatar>
                             <span>{{ author.nickname }}</span>
@@ -49,7 +49,7 @@
                         <el-avatar
                             shape="square"
                             :size="40"
-                            :src="item.avatarUrl"
+                            :src="item.avatarUrl + '?param=40y40'"
                             v-for="(item, index) in subscribers"
                             :key="index"
                         >
@@ -78,7 +78,7 @@
                     <div class="comments">
                         <ul>
                             <li class="item" v-for="(item, index) in commentPlayList" :key="index">
-                                <el-avatar :size="45" :src="item.user.avatarUrl">
+                                <el-avatar :size="45" :src="item.user.avatarUrl + '?param=45y45'">
                                     <img src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png" />
                                 </el-avatar>
                                 <div class="item-right">

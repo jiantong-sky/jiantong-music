@@ -2,7 +2,7 @@
     <ul>
         <li v-for="item in commentList" :key="item.id">
             <div class="avatar">
-                <img :src="item.user.avatarUrl" alt="" />
+                <img :src="item.user.avatarUrl + '?param=45y45'" alt="" />
             </div>
             <div class="info">
                 <h2>

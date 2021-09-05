@@ -2,7 +2,7 @@
     <div class="banner">
         <el-carousel :interval="4000" type="card" height="200px" trigger="click">
             <el-carousel-item v-for="(item, index) in bannerList" :key="index">
-                <img :src="item.imageUrl" alt="" />
+                <img :src="item.imageUrl + '?param=600y200'" alt="" />
             </el-carousel-item>
         </el-carousel>
     </div>

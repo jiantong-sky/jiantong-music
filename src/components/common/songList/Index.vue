@@ -6,7 +6,7 @@
                     <el-icon class="el-icon-video-play"></el-icon>
                 </div>
             </transition>
-            <el-image :src="item.image" lazy style="width: 70px; height: 70px">
+            <el-image :src="item.image + '?param=70y70'" lazy style="width: 70px; height: 70px">
                 <div slot="placeholder" class="loading flex-row">
                     <el-icon class="el-icon-loading"></el-icon>
                 </div>

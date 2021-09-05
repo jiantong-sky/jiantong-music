@@ -4,12 +4,12 @@
             <el-card class="play">
                 <div class="play-top">
                     <div class="play-img">
-                        <img :src="album.blurPicUrl" />
+                        <img :src="album.blurPicUrl + '?param=200y200'" />
                     </div>
                     <div class="play-info">
                         <h2>{{ album.name }}</h2>
                         <div class="play-author">
-                            <el-avatar :size="30" :src="artist.picUrl">
+                            <el-avatar :size="30" :src="artist.picUrl + '?param=30y30'">
                                 <img src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png" />
                             </el-avatar>
                             <span>{{ artist.name }}</span>
@@ -48,7 +48,7 @@
                     <div class="comments">
                         <ul>
                             <li class="item" v-for="(item, index) in hotComments" :key="index">
-                                <el-avatar :size="45" :src="item.user.avatarUrl">
+                                <el-avatar :size="45" :src="item.user.avatarUrl + '?param=45y45'">
                                     <img src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png" />
                                 </el-avatar>
                                 <div class="item-right">
@@ -106,7 +106,7 @@ export default {
             const data = await this.$http.getCommentAlbum(params)
             if (data.code !== 200) return this.$message.error('获取专辑评论失败')
             this.hotComments = data.hotComments
-            console.log(data)
+            // console.log(data)
         },
         // 获取歌手专辑
         async getArtistAlbum() {

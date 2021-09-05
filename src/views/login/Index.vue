@@ -46,7 +46,7 @@ export default {
     data() {
         return {
             loginForm: {
-                phone: '18816487448',
+                phone: '',
                 password: '',
             },
             loginFormRules: {
