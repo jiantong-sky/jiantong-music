@@ -180,6 +180,8 @@ export default {
         },
         '$store.state.isPlay'(newState) {
             var item = this.songs[this.musicIndex]
+            // console.log(item)
+            if (!item) return
             item.state2 = !newState
             item.state3 = newState
             this.$emit('modifyInfo', item)
